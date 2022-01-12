@@ -29,8 +29,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# library, some of the lib needs db table, use "migrate" to init it.
+# "migrate" will find the INSTALLED_APPS libs and generate the table libs needed.
 INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 
