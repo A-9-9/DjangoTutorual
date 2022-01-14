@@ -5,12 +5,9 @@ from . import views
 app_name = 'polls'
 # when html invoke the 'url', can differentiate the name with other apps like app_name: name
 urlpatterns = [
-    # /polls/
-    path('', views.index, name='index'),
-    # /polls/2/
-    path('<int:question_id>/', views.detail, name='detail'),
-    # /polls/2/results
-    path('<int:question_id>/results', views.result, name='result'),
-    # /polls/2/vote
+
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('<int:pk>/results', views.ResultsView.as_view(), name='result'),
     path('<int:question_id>/vote', views.vote, name='vote')
 ]
