@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import F
 from django.views import generic
-
+from django.utils import timezone
 # For ListView, automatically generated context variable is question_list.
 # We can change the templates to match the new default context variables,
 # or tell Django to use the variable you want. Default(question_list)
@@ -14,7 +14,10 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
+
 
 # DetailView needs pk value
 # The template_name attribute is used to tell Django to use a specific
@@ -23,6 +26,8 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 class ResultsView(generic.DetailView):
     model = Question

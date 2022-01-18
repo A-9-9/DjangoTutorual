@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import datetime
 # Create your models here.
 # usage of the models.Field:
 # the name of the instance is the field name or use the first position arguments to indicate the field name
@@ -12,7 +13,8 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - timezone.timedelta(days=1)
+        now = timezone.now()
+        return now >= self.pub_date >= now - datetime.timedelta(days=1)
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
